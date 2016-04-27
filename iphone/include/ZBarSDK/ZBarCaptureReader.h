@@ -46,7 +46,6 @@
 @interface ZBarCaptureReader
     : NSObject
 {
-#if !TARGET_IPHONE_SIMULATOR
     AVCaptureVideoDataOutput *captureOutput;
     id<ZBarCaptureDelegate> captureDelegate;
     ZBarImageScanner *scanner;
@@ -63,7 +62,6 @@
     unsigned width, height;
     uint64_t t_frame, t_fps, t_scan;
     CGFloat dt_frame;
-#endif
 }
 
 // supply a pre-configured image scanner

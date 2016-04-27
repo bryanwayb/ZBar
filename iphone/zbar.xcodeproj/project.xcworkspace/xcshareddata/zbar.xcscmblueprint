@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "494957569499F182E8B8C8FB1C13C6EF1320F5E3",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "504AA8CB2E242332E9D985D3554661995989740A" : 0,
+    "494957569499F182E8B8C8FB1C13C6EF1320F5E3" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F27E34A6-28D3-4691-8E56-731763CE87DD",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "504AA8CB2E242332E9D985D3554661995989740A" : "..",
+    "494957569499F182E8B8C8FB1C13C6EF1320F5E3" : "zbar\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "zbar",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "iphone\/zbar.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ZBar\/ZBar.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "494957569499F182E8B8C8FB1C13C6EF1320F5E3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "bitbucket.org:aiipllc\/iq-office.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "504AA8CB2E242332E9D985D3554661995989740A"
+    }
+  ]
+}

@@ -21,6 +21,7 @@
 //  http://sourceforge.net/projects/zbar
 //------------------------------------------------------------------------
 
+#import <AVFoundation/AVFoundation.h>
 #import <ZBarSDK/ZBarReaderViewController.h>
 #import <ZBarSDK/ZBarReaderView.h>
 #import <ZBarSDK/ZBarCaptureReader.h>
@@ -62,14 +63,12 @@ AVDeviceForUICamera (UIImagePickerControllerCameraDevice camera)
     if(position < 0)
         return(nil);
 
-#if !TARGET_IPHONE_SIMULATOR
     NSArray *allDevices =
         [AVCaptureDevice devicesWithMediaType: AVMediaTypeVideo];
     for(AVCaptureDevice *device in allDevices)
         // FIXME how to quantify "best" of several (theoretical) possibilities
         if(device.position == position)
             return(device);
-#endif
     return(nil);
 }
 
@@ -91,7 +90,6 @@ AVTorchModeForUIFlashMode (UIImagePickerControllerCameraFlashMode mode)
 static inline NSString*
 AVSessionPresetForUIVideoQuality (UIImagePickerControllerQualityType quality)
 {
-#if !TARGET_IPHONE_SIMULATOR
     switch(quality)
     {
     case UIImagePickerControllerQualityTypeHigh:
@@ -107,7 +105,6 @@ AVSessionPresetForUIVideoQuality (UIImagePickerControllerQualityType quality)
     case UIImagePickerControllerQualityTypeIFrame960x540:
         return(AVCaptureSessionPresetiFrame960x540);
     }
-#endif
     return(nil);
 }
 
@@ -125,20 +122,17 @@ AVSessionPresetForUIVideoQuality (UIImagePickerControllerQualityType quality)
 {
     if(sourceType != UIImagePickerControllerSourceTypeCamera)
         return(NO);
-    return(TARGET_IPHONE_SIMULATOR ||
-           [UIImagePickerController isSourceTypeAvailable: sourceType]);
+    return([UIImagePickerController isSourceTypeAvailable: sourceType]);
 }
 
 + (BOOL) isCameraDeviceAvailable: (UIImagePickerControllerCameraDevice) camera
 {
-    return(TARGET_IPHONE_SIMULATOR ||
-           [UIImagePickerController isCameraDeviceAvailable: camera]);
+    return([UIImagePickerController isCameraDeviceAvailable: camera]);
 }
 
 + (BOOL) isFlashAvailableForCameraDevice: (UIImagePickerControllerCameraDevice) camera
 {
-    return(TARGET_IPHONE_SIMULATOR ||
-           [UIImagePickerController isFlashAvailableForCameraDevice: camera]);
+    return([UIImagePickerController isFlashAvailableForCameraDevice: camera]);
 }
 
 + (NSArray*) availableCaptureModesForCameraDevice: (UIImagePickerControllerCameraDevice) camera
@@ -163,9 +157,7 @@ AVSessionPresetForUIVideoQuality (UIImagePickerControllerQualityType quality)
     cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
     videoQuality = UIImagePickerControllerQualityType640x480;
     AVCaptureDevice *device = nil;
-#if !TARGET_IPHONE_SIMULATOR
     device = [AVCaptureDevice defaultDeviceWithMediaType: AVMediaTypeVideo];
-#endif
     if(device)
         cameraDevice = UICameraForAVPosition(device.position);
     else
@@ -184,8 +176,7 @@ AVSessionPresetForUIVideoQuality (UIImagePickerControllerQualityType quality)
 
 - (id) init
 {
-    if(!TARGET_IPHONE_SIMULATOR &&
-       !NSClassFromString(@"AVCaptureSession")) {
+    if(!NSClassFromString(@"AVCaptureSession")) {
         // fallback to old interface
         zlog(@"Falling back to ZBarReaderController");
         [self release];
@@ -378,12 +369,6 @@ AVSessionPresetForUIVideoQuality (UIImagePickerControllerQualityType quality)
     }
 
     [self initControls];
-
-    if(TARGET_IPHONE_SIMULATOR) {
-        cameraSim = [[ZBarCameraSimulator alloc]
-                        initWithViewController: self];
-        cameraSim.readerView = readerView;
-    }
 }
 
 - (void) viewDidUnload
@@ -574,12 +559,7 @@ AVSessionPresetForUIVideoQuality (UIImagePickerControllerQualityType quality)
 
 - (void) takePicture
 {
-    if(TARGET_IPHONE_SIMULATOR) {
-        [cameraSim takePicture];
-        // FIXME return selected image
-    }
-    else if(readerView)
-        [readerView.captureReader captureFrame];
+    [readerView.captureReader captureFrame];
 }
 
 - (void) setCameraDevice: (UIImagePickerControllerCameraDevice) camera

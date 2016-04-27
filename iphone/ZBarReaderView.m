@@ -553,20 +553,18 @@ static inline CGFloat rotationForInterfaceOrientation (int orient)
     on.removedOnCompletion = NO;
 
     CABasicAnimation *off = nil;
-    if(!TARGET_IPHONE_SIMULATOR) {
-        off = [CABasicAnimation animationWithKeyPath: @"opacity"];
-        off.fromValue = [NSNumber numberWithDouble: 1];
-        off.toValue = [NSNumber numberWithDouble: 0];
-        off.beginTime = .5;
-        off.duration = .5;
-        off.timingFunction = linear;
-    }
+    off = [CABasicAnimation animationWithKeyPath: @"opacity"];
+    off.fromValue = [NSNumber numberWithDouble: 1];
+    off.toValue = [NSNumber numberWithDouble: 0];
+    off.beginTime = .5;
+    off.duration = .5;
+    off.timingFunction = linear;
 
     CAAnimationGroup *group = [CAAnimationGroup animation];
     group.animations = [NSArray arrayWithObjects: resize, move, on, off, nil];
     group.duration = 1;
     group.fillMode = kCAFillModeForwards;
-    group.removedOnCompletion = !TARGET_IPHONE_SIMULATOR;
+    group.removedOnCompletion = YES;
     [trk addAnimation: group
          forKey: @"tracking"];
 }
